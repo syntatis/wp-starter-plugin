@@ -8,16 +8,18 @@ declare(strict_types=1);
  * This file is read by WordPress to display the plugin's information in the admin area.
  *
  * @wordpress-plugin
- * Plugin Name:  WP Starter Plugin
- * Plugin URI:   https://github.com/syntatis/wp-starter-plugin
- * Description:  This is a description of the plugin.
- * Version:      1.0.0
- * Author:       Thoriq Firdaus
- * Author URI:   https://github.com/tfirdaus
- * License:      GPL-2.0+
- * License URI:  https://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:  wp-starter-plugin
- * Domain Path:  /languages
+ * Plugin Name:       WP Starter Plugin
+ * Plugin URI:        https://github.com/syntatis/wp-starter-plugin
+ * Description:       This is a description of the plugin.
+ * Version:           1.0.0
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Author:            Thoriq Firdaus
+ * Author URI:        https://github.com/tfirdaus
+ * License:           GPL-2.0+
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       wp-starter-plugin
+ * Domain Path:       /languages
  */
 
 use WPStarterPlugin\Plugin;
