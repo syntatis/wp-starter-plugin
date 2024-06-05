@@ -20,7 +20,7 @@
 	<!-- Show the warning but exit with 0. The Warning is fine -->
 	<config name="ignore_warnings_on_exit" value="1"/>
 
-	<!-- Check for cross-version support for PHP 7.4 or higher. Requires PHPCompatibility -->
+	<!-- Check for cross-version support for PHP 7.4 or higher. Requires PHPCompatibilityWP -->
 	<config name="testVersion" value="7.4-"/>
 
 	<!-- Include full Doctrine Coding Standard -->
@@ -33,6 +33,6 @@
 		</properties>
 	</rule>
 
-	<!-- Enable PHPCompatibility ruleset to enable version compatibility test -->
-	<rule ref="PHPCompatibility"/>
+	<!-- Enable PHPCompatibilityWP ruleset to enable version compatibility test -->
+	<rule ref="PHPCompatibilityWP"/>
 </ruleset>

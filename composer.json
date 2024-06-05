@@ -29,7 +29,7 @@
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-		"phpcompatibility/php-compatibility": "^9.3",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"symfony/var-dumper": "^5.4",
 		"syntatis/coding-standard": "^1.1"
 	},
