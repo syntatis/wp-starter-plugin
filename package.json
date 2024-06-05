@@ -26,14 +26,14 @@
 	},
 	"dependencies": {
 		"@syntatis/wp-classic-components": "^0.1.0-alpha.7",
-		"@wordpress/api-fetch": "^6.55.0",
-		"@wordpress/dom-ready": "^3.58.0",
-		"@wordpress/i18n": "^4.58.0",
+		"@wordpress/api-fetch": "^7.0.0",
+		"@wordpress/dom-ready": "^4.0.0",
+		"@wordpress/i18n": "^5.0.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^27.9.0"
+		"@wordpress/scripts": "^28.0.0"
 	},
 	"scripts": {
 		"start": "wp-scripts start --output-path=dist",
