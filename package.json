@@ -1,6 +1,6 @@
 {
 	"name": "@syntatis/wp-starter-plugin",
-	"description": "WordPress plugin boilerplate refined",
+	"description": "A starting point for your next plugin project",
 	"version": "1.0.0",
 	"author": {
 		"name": "Thoriq Firdaus",
