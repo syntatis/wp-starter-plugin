@@ -10,7 +10,8 @@
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"wordpress",
-		"plugin"
+		"plugin",
+		"boilerplate"
 	],
 	"homepage": "https://github.com/syntatis/wp-starter-plugin#readme",
 	"repository": {
