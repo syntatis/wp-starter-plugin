@@ -19,7 +19,8 @@ This WordPress boilerplate provides a basic structure for your plugin and includ
 Here are some of the tools included in this boilerplate:
 
 * **[Composer](https://getcomposer.org/)**: Manages PHP dependencies.
+* **[PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer)**: Checks and fixes code styles according to common PHP practices.
+* **[PHPScoper](https://github.com/humbug/php-scoper)**: Prevents class name collisions with other plugins.
 * **[NPM](https://www.npmjs.com/)**: Manages JavaScript dependencies.
 * **[Webpack](https://webpack.js.org/) (via [wp-scripts](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/))**: Bundles and optimizes assets.
-* **[PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer)**: Checks and fixes code styles according to common PHP practices.
 * **[ESLint](https://eslint.org/)**: Checks and fixes code styles according to common JavaScript practices.
