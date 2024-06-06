@@ -40,6 +40,7 @@
 			"@composer install --no-dev",
 			"php-scoper add-prefix --output-dir=dist-autoload --force --quiet",
 			"@composer dump-autoload --working-dir dist-autoload",
+			"@composer bin php-scoper remove humbug/php-scoper",
 			"@composer remove bamarni/composer-bin-plugin"
 		],
 		"phpcs:fix": "phpcbf",
