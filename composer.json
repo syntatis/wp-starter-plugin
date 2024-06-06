@@ -1,6 +1,6 @@
 {
 	"name": "syntatis/wp-starter-plugin",
-	"description": "This is a description of the plugin.",
+	"description": "WordPress plugin boilerplate refined",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress",
