@@ -36,14 +36,18 @@
 	"scripts": {
 		"scope": [
 			"@composer require bamarni/composer-bin-plugin",
-			"@composer bin php-scoper require humbug/php-scoper",
-			"@composer install --no-dev --prefer-dist",
+			"@composer bin php-scoper require -W humbug/php-scoper:*",
+			"@composer install --no-dev",
 			"php-scoper add-prefix --output-dir=dist-autoload --force --quiet",
-			"@composer dump-autoload --working-dir dist-autoload --classmap-authoritative",
+			"@composer dump-autoload --working-dir dist-autoload",
 			"@composer remove bamarni/composer-bin-plugin"
 		],
 		"phpcs:fix": "phpcbf",
-		"phpcs": "phpcs"
+		"phpcs": "phpcs",
+		"post-create-project-cmd": [
+			"@composer scope",
+			"@composer install"
+		]
 	},
 	"prefer-stable": true,
 	"config": {
