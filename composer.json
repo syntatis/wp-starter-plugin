@@ -49,10 +49,12 @@
 			"@composer install"
 		]
 	},
-	"prefer-stable": true,
+	"minimum-stability": "stable",
+    "prefer-stable": true,
 	"config": {
-		"sort-packages": true,
-		"classmap-authoritative": true,
+		"optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"bamarni/composer-bin-plugin": true
