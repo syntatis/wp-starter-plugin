@@ -12,6 +12,6 @@ This WordPress plugin boilerplate is designed to be a starting point for your ne
 
 ## Why?
 
-Creating a WordPress plugin only requires a single PHP file, but as your plugin grows and require to integrate more differing features into it, you will need to organize your code in a way that makes it easier to manage and maintain.
+Creating a WordPress plugin can start with just a single PHP file, but as your plugin grows and adds more features, you'll need to organize your code and use the correct tools to make it easier to manage and maintain.
 
-The boilerplate sets up a basic structure for your plugin, including number of popular tools such as Composer and NPM to manage dependencies, Webpack to bundle assets, and PHPCS to lint PHP code to help you develop your plugin more efficiently
+This WordPress boilerplate provides a basic structure for your plugin and includes some popular tools like [Composer](https://getcomposer.org/) and [NPM](https://www.npmjs.com/) to manage dependencies, [Webpack](https://webpack.js.org/) to bundle assets, and [PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer/) and [ESLint](https://eslint.org/) to help you write clean, efficient code. This setup helps you get started quickly and develop your plugin more effectively.
