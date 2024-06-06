@@ -7,6 +7,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useSettings } from './useSettings';
 import { getOption } from '../../helpers/option';
+import '@syntatis/wp-classic-components/dist/index.css';
 
 export const Form = () => {
 	const { status, statusText, updateStatus, updateValues, values } =
