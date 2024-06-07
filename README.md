@@ -37,8 +37,10 @@ This command will create a new directory named `wp-starter-plugin` and download 
 
 ### With GitHub
 
-You can also use this repository as a template to create a new repository with the same boilerplate files. Click the <kbd>Use this template</kbd> button at the top of this page to create a new repository with the same files. For more information, see [Creating a repository from a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template). However, unlike the Composer method, which immediately pulls and set up the boilerplate, you will need to clone the repository and run the following commands to scope the plugin dependencies:
+You can also use this repository as a template to create a new repository with the same boilerplate files. Click the <kbd>Use this template</kbd> button at the top of this page to create a new repository with the same files. However, unlike the Composer method, which immediately pulls and set up the boilerplate, you will need to clone the repository and run the following commands to scope the plugin dependencies:
 
 ```bash
 composer scope && composer install
 ```
+
+For more information, see [Creating a repository from a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template). 
