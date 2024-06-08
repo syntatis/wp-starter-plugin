@@ -24,6 +24,7 @@ export const Form = () => {
 		return;
 	}
 
+	const idPrefix = `${ pluginName }-settings-`;
 	const isUpdating = status === 'updating';
 
 	return (
@@ -50,9 +51,7 @@ export const Form = () => {
 						<tbody>
 							<tr>
 								<th scope="row">
-									<label
-										htmlFor={ `${ pluginName }-settings-greeting` }
-									>
+									<label htmlFor={ `${ idPrefix }greeting` }>
 										{ __(
 											'Greeting',
 											'wp-starter-plugin'
@@ -61,7 +60,7 @@ export const Form = () => {
 								</th>
 								<td>
 									<TextField
-										id={ `${ pluginName }-settings-greeting` }
+										id={ `${ idPrefix }greeting` }
 										className="regular-text"
 										defaultValue={ getOption(
 											`${ optionPrefix }greeting`
