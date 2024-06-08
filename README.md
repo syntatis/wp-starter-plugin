@@ -12,7 +12,7 @@
 
 Creating a WordPress plugin can begin with just a single PHP file, but as your plugin grows and adds more features, you'll need to organize your code and use the right tools to make it easier to manage and maintain.
 
-This WordPress plugin boilerplate provides a basic minimal structure for your plugin and includes some popular tools pre-configured to help you get started quickly and develop your plugin more efficiently. Here are some of the tools included in this boilerplate:
+This WordPress plugin boilerplate provides a basic minimal opininated structure for your plugin and includes some popular tools pre-configured to help you get started quickly and develop your plugin more efficiently. Here are some of the tools included in this boilerplate:
 
 ## Tools
 
