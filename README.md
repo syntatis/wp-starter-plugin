@@ -1,6 +1,8 @@
 <div align="center">
   <div><strong>⚡ wp-starter-plugin</strong></div>
   <p>A starting point for your next plugin project</p>
+	
+![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/syntatis/wp-helpers/php)
 </div>
 
 ---
