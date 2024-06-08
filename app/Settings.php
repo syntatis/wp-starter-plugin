@@ -57,11 +57,6 @@ class Settings implements WithHook, InlineScript
 
 	public function __construct()
 	{
-		$this->enqueue = new Enqueue(
-			WP_STARTER_PLUGIN__DIR__ . '/dist',
-			plugin_dir_url(WP_STARTER_PLUGIN__FILE__),
-		);
-
 		/**
          * Define the plugin options and their default values in the registry.
          * This ensures options are correctly stored, retrieved, and defaulted.
@@ -72,8 +67,14 @@ class Settings implements WithHook, InlineScript
 				->apiEnabled(true)
 		]);
 
-		$this->enqueue->setPrefix($this->enqueuePrefix);
+		$this->enqueue = new Enqueue(
+			WP_STARTER_PLUGIN__DIR__ . '/dist',
+			plugin_dir_url(WP_STARTER_PLUGIN__FILE__) . 'dist',
+		);
+
 		$this->optionRegistry->setPrefix($this->optionPrefix);
+		$this->enqueue->setPrefix($this->enqueuePrefix);
+		$this->enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, WP_STARTER_PLUGIN__DIR__ . '/languages');
 	}
 
 	/**
@@ -118,7 +119,7 @@ class Settings implements WithHook, InlineScript
 		) {
 			$this->enqueue->addStyle($this->distFile);
 			$this->enqueue->styles();
-			$this->enqueue->addScript($this->distFile)->withInlineScripts($this);
+			$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
 			$this->enqueue->scripts();
 		}
 	}
@@ -143,6 +144,6 @@ class Settings implements WithHook, InlineScript
 
 	public function getInlineScriptContent(): string
 	{
-		return 'window.__wpStarterPlugin = Object.assign(window.__wpStarterPlugin||{},{"settings":' . json_encode($this->optionRegistry) . '})';
+		return 'window.__wpStarterPluginSettings = ' . json_encode($this->optionRegistry);
 	}
 }
