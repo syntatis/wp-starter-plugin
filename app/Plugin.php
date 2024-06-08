@@ -56,7 +56,7 @@ class Plugin
 			'upgrader_process_complete',
 			fn (WP_Upgrader $upgrader, array $hookExtra) => $this->update($upgrader, $hookExtra),
 		);
-		$this->hook->run();
+		$this->hook->register();
 
 		/**
 		 * Fires after the plugin is fully initialized.
