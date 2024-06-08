@@ -98,17 +98,19 @@ class Settings implements WithHook, InlineScript
      */
 	private function enqueueScripts(string $adminPage): void
 	{
-		if (
-			$adminPage === 'settings_page_' . WP_STARTER_PLUGIN_NAME ||
-			$adminPage === 'post.php' ||
-			$adminPage === 'post-new.php'
-		) {
-			$this->enqueue->addStyle($this->distFile);
-			$this->enqueue->styles();
+		/**
+		 * List of admin pages where the plugin scripts and stylesheet should load.
+		 */
+		$adminPages = ['settings_page_' . WP_STARTER_PLUGIN_NAME, 'post.php', 'post-new.php'];
 
-			$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
-			$this->enqueue->scripts();
+		if (!in_array($adminPage, $adminPages, true)) {
+			return;
 		}
+
+		$this->enqueue->addStyle($this->distFile);
+		$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
+		$this->enqueue->scripts();
+		$this->enqueue->styles();
 	}
 
 	/**
