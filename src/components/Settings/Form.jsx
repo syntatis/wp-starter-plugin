@@ -6,17 +6,21 @@ import {
 } from '@syntatis/wp-classic-components';
 import { __ } from '@wordpress/i18n';
 import { useSettings } from './useSettings';
-import { getOption } from '../../helpers/option';
 import '@syntatis/wp-classic-components/dist/index.css';
 
 export const Form = () => {
-	const settings = useSettings();
+	const {
+		status,
+		statusText,
+		updateStatus,
+		updateValues,
+		getOption,
+		values,
+	} = useSettings();
 
-	if ( ! settings.values ) {
+	if ( ! values ) {
 		return;
 	}
-
-	const { status, statusText, updateStatus, updateValues } = settings;
 	const isUpdating = status === 'updating';
 
 	return (

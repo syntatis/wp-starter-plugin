@@ -1,23 +1,28 @@
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import { useState } from 'react';
-import { getAllOptions } from '../../helpers/option';
-
-const allOptions = getAllOptions();
-const filterValues = ( values ) => {
-	for ( const name in values ) {
-		if ( ! Object.keys( allOptions ).includes( name ) ) {
-			delete values[ name ];
-		}
-	}
-
-	return values;
-};
 
 export const useSettings = () => {
+	const allOptions = window.__wpStarterPluginSettings?.options;
 	const [ values, setValues ] = useState( allOptions );
 	const [ status, setStatus ] = useState();
 	const [ statusText, setStatusText ] = useState();
+	const filterValues = ( v ) => {
+		for ( const name in v ) {
+			if ( ! Object.keys( allOptions ).includes( name ) ) {
+				delete v[ name ];
+			}
+		}
+
+		return v;
+	};
+
+	/**
+	 * @param {string} name The option name.
+	 */
+	function getOption( name ) {
+		return allOptions[ name ];
+	}
 
 	const updateValues = ( newValues ) => {
 		setStatus( 'updating' );
@@ -55,5 +60,6 @@ export const useSettings = () => {
 			updateValues( newValues );
 		},
 		updateStatus: setStatus,
+		getOption,
 	};
 };
