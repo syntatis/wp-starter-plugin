@@ -33,7 +33,7 @@ class Settings implements WithHook, InlineScript
 		/**
 		 * Defines the scripts and styles to be enqueued on the settings page.
 		 */
-		$this->enqueue = $plugin->getEnqueue();
+		$this->enqueue = $plugin->createEnqueue();
 		$this->enqueue->addStyle('settings');
 		$this->enqueue->addScript('settings', ['localized' => true])->withInlineScripts($this);
 

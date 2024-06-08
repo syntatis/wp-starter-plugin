@@ -120,7 +120,7 @@ class Plugin
 	 * Factory method to create a new instance of `Enqueue` for enqueuing the
 	 * scripts and stylessheet files.
 	 */
-	public function getEnqueue(): Enqueue
+	public function createEnqueue(): Enqueue
 	{
 		$enqueue = new Enqueue(
 			$this->getDirectoryPath('dist'),
