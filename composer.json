@@ -35,7 +35,7 @@
 		"syntatis/coding-standard": "^1.1"
 	},
 	"minimum-stability": "stable",
-    "prefer-stable": true,
+	"prefer-stable": true,
 	"scripts": {
 		"phpcs:fix": "phpcbf",
 		"phpcs": "phpcs",
@@ -51,12 +51,12 @@
 		]
 	},
 	"scripts-descriptions": {
-        "scope": "Scope the autoloader to prevent conflicts with other plugins"
-    },
+		"scope": "Scope the autoloader to prevent conflicts with other plugins"
+	},
 	"config": {
 		"optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
+		"preferred-install": "dist",
+		"sort-packages": true,
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"bamarni/composer-bin-plugin": true
