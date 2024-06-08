@@ -17,19 +17,8 @@ use function WPStarterPlugin\Vendor\Syntatis\WPHelpers\is_plugin_updated;
  * of core functionalities such as the settings, blocks, and hooks, and
  * manages activation, deactivation, and update processes.
  */
-class Plugin
+class Plugin implements WithHook
 {
-	private Hook $hook;
-
-	private Blocks $blocks;
-
-	private Settings $settings;
-
-	public function __construct()
-	{
-		$this->hook = new Hook();
-	}
-
 	/**
 	 * Initialize the plugin's features and components.
 	 *
@@ -41,24 +30,22 @@ class Plugin
 		yield new Settings();
 	}
 
-	public function init(): void
+	public function hook(Hook $hook): void
 	{
-		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
-		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
-
 		foreach ($this->getInstances() as $instance) {
 			if (! ($instance instanceof WithHook)) {
 				continue;
 			}
 
-			$instance->hook($this->hook);
+			$instance->hook($hook);
 		}
 
-		$this->hook->addAction(
-			'upgrader_process_complete',
-			fn (WP_Upgrader $upgrader, array $hookExtra) => $this->update($upgrader, $hookExtra),
-		);
-		$this->hook->register();
+		$update = fn (WP_Upgrader $upgrader, array $hookExtra) => $this->update($upgrader, $hookExtra);
+		$hook->addAction('upgrader_process_complete', $update);
+		$hook->register();
+
+		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
+		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
 
 		/**
 		 * Fires after the plugin is fully initialized.
