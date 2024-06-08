@@ -28,6 +28,8 @@ class Settings implements WithHook, InlineScript
 
 	private OptionRegistry $options;
 
+	private string $optionPrefix;
+
 	/**
 	 * The filename of the compiled JavaScript and Stylesheet file to enqueue
 	 * and load on the settings page.
@@ -36,6 +38,7 @@ class Settings implements WithHook, InlineScript
 
 	public function __construct(Plugin $plugin)
 	{
+		$this->optionPrefix = snakecased(WP_STARTER_PLUGIN_NAME) . '_';  // `wp_starter_plugin_`.
 
 		/**
 		 * Defines the plugin options to ensures options are handled, stored, and
@@ -46,7 +49,7 @@ class Settings implements WithHook, InlineScript
 				->setDefault('Hello World!')
 				->apiEnabled(true)
 		]);
-		$this->options->setPrefix(snakecased(WP_STARTER_PLUGIN_NAME) . '_'); // `wp_starter_plugin_`.
+		$this->options->setPrefix($this->optionPrefix);
 
 		/**
 		 * Defines the configs for enqueuing the scripts and stylessheet files on
@@ -137,6 +140,10 @@ class Settings implements WithHook, InlineScript
 
 	public function getInlineScriptContent(): string
 	{
-		return 'window.__wpStarterPluginSettings = ' . json_encode($this->options);
+		return 'window.__wpStarterPlugin = ' . json_encode([
+			'pluginName' => WP_STARTER_PLUGIN_NAME,
+			'optionPrefix' => $this->optionPrefix,
+			'settings' => $this->options,
+		]) . ';';
 	}
 }
