@@ -19,7 +19,7 @@ function get_plugin_basename(): string
  * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
  * @return string The full path to the file or directory, withtout the trailingslash e.g. '/wp-content/plugins/wp-starter-plugin/dist'.
  */
-function get_directory_path(?string $path = null): string
+function get_plugin_directory_path(?string $path = null): string
 {
 	$path = trim($path, DIRECTORY_SEPARATOR);
 
@@ -36,7 +36,7 @@ function get_directory_path(?string $path = null): string
  * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
  * @return string The full URL to the file or directory, withtout the trailingslash e.g. 'https://example.com/wp-content/plugins/wp-starter-plugin/dist'.
  */
-function get_directory_url(?string $path = null): string
+function get_plugin_directory_url(?string $path = null): string
 {
 	$dirUrl = plugin_dir_url(WP_STARTER_PLUGIN__FILE__);
 
@@ -54,11 +54,11 @@ function get_directory_url(?string $path = null): string
 function enqueue(): Enqueue
 {
 	$enqueue = new Enqueue(
-		get_directory_path('dist'),
-		get_directory_url('dist'),
+		get_plugin_directory_path('dist'),
+		get_plugin_directory_url('dist'),
 	);
 	$enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
-	$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, get_directory_path('languages'));
+	$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, get_plugin_directory_path('languages'));
 
 	return $enqueue;
 }
