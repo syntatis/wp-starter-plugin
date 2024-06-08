@@ -28,20 +28,14 @@ class Settings implements WithHook, InlineScript
 
 	private OptionRegistry $options;
 
-	/**
-	 * The filename of the compiled JavaScript and Stylesheet file to enqueue
-	 * and load on the settings page.
-	 */
-	private const DIST_FILE = 'components-settings';
-
 	public function __construct(Plugin $plugin)
 	{
 		/**
 		 * Defines the scripts and styles to be enqueued on the settings page.
 		 */
 		$this->enqueue = $plugin->getEnqueue();
-		$this->enqueue->addStyle(self::DIST_FILE);
-		$this->enqueue->addScript(self::DIST_FILE, ['localized' => true])->withInlineScripts($this);
+		$this->enqueue->addStyle('settings');
+		$this->enqueue->addScript('settings', ['localized' => true])->withInlineScripts($this);
 
 		/**
 		 * Defines the plugin options to ensures options are handled, stored, and

@@ -1,5 +1,5 @@
 import { useBlockProps } from '@wordpress/block-editor';
-import { useSettings } from '../../components/Settings';
+import { useSettings } from '../../settings';
 
 export default function Edit() {
 	const { getOption } = useSettings();

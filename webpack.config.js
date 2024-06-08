@@ -31,6 +31,6 @@ module.exports = {
 	...defaultConfig,
 	entry: {
 		...defaultConfig.entry(),
-		...fileEntries( glob.sync( './src/components/*/index.js' ) ),
+		...fileEntries( glob.sync( './src/*/index.js' ) ),
 	},
 };
