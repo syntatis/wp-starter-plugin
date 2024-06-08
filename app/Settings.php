@@ -1,7 +1,5 @@
 <?php
 
-// phpcs:disable -- Generic.Files.InlineHTML.Found
-
 declare(strict_types=1);
 
 namespace WPStarterPlugin;
@@ -13,7 +11,8 @@ use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 use WPStarterPlugin\Vendor\Syntatis\WPOption\Option;
 use WPStarterPlugin\Vendor\Syntatis\WPOption\Registry as OptionRegistry;
 
-use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
+use function in_array;
+use function json_encode;
 
 /**
  * The Plugin Settings.
@@ -46,14 +45,11 @@ class Settings implements WithHook, InlineScript
 				(new Option('greeting', 'string'))
 					->setDefault('Hello World!')
 					->apiEnabled(true),
-			]
+			],
 		);
 		$this->options->setPrefix('wp_starter_plugin_');
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('rest_api_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
@@ -65,8 +61,8 @@ class Settings implements WithHook, InlineScript
 	}
 
 	/**
-     * Add the settings menu to the WordPress admin interface.
-     */
+	 * Add the settings menu to the WordPress admin interface.
+	 */
 	private function addMenu(): void
 	{
 		add_submenu_page(
@@ -80,10 +76,10 @@ class Settings implements WithHook, InlineScript
 	}
 
 	 /**
-     * Enqueue scripts and styles for the settings page.
-     *
-     * @param string $adminPage The current admin page.
-     */
+	  * Enqueue scripts and styles for the settings page.
+	  *
+	  * @param string $adminPage The current admin page.
+	  */
 	private function enqueueScripts(string $adminPage): void
 	{
 		/**
@@ -92,10 +88,10 @@ class Settings implements WithHook, InlineScript
 		$adminPages = [
 			'settings_page_' . WP_STARTER_PLUGIN_NAME,
 			'post.php',
-			'post-new.php'
+			'post-new.php',
 		];
 
-		if (!in_array($adminPage, $adminPages, true)) {
+		if (! in_array($adminPage, $adminPages, true)) {
 			return;
 		}
 
@@ -117,12 +113,15 @@ class Settings implements WithHook, InlineScript
 		if (! current_user_can('manage_options')) {
 			return;
 		}
+
+		// phpcs:disable Generic.Files.InlineHTML.Found
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<div id="<?php echo esc_attr(WP_STARTER_PLUGIN_NAME) ?>-settings"></div>
 		</div>
 		<?php
+		// phpcs:enable
 	}
 
 	public function getInlineScriptPosition(): string

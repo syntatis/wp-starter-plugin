@@ -13,7 +13,7 @@ declare(strict_types=1);
  * Description:       This is a description of the plugin.
  * Version:           1.0.0
  * Requires at least: 5.2
- * Requires PHP:      7.2
+ * Requires PHP:      7.4
  * Author:            Thoriq Firdaus
  * Author URI:        https://github.com/tfirdaus
  * License:           GPL-2.0+

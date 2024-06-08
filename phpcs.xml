@@ -15,15 +15,18 @@
 	<file>scoper.inc.php</file>
 	<file>uninstall.php</file>
 	<file>wp-starter-plugin.php</file>
-	<file>./app/</file>
+	<file>./app</file>
 
 	<!-- Show the warning but exit with 0. The Warning is fine -->
 	<config name="ignore_warnings_on_exit" value="1"/>
 
+	<!-- Check for cross-version support for WordPress 5.2 or higher. -->
+	<config name="minimum_wp_version" value="5.2"/>
+
 	<!-- Check for cross-version support for PHP 7.4 or higher. Requires PHPCompatibilityWP -->
 	<config name="testVersion" value="7.4-"/>
 
-	<!-- Include full Doctrine Coding Standard -->
+	<!-- Rulesets -->
 	<rule ref="Syntatis"/>
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
@@ -32,7 +35,13 @@
 			</property>
 		</properties>
 	</rule>
-
-	<!-- Enable PHPCompatibilityWP ruleset to enable version compatibility test -->
+	<rule ref="WordPress.Security"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wp-starter-plugin"/>
+			</property>
+		</properties>
+	</rule>
 	<rule ref="PHPCompatibilityWP"/>
 </ruleset>
