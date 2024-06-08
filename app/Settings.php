@@ -16,11 +16,11 @@ use WPStarterPlugin\Vendor\Syntatis\WPOption\Registry as OptionRegistry;
 use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
 
 /**
- * This class manages the plugin's settings, including their registration,
- * loading, and rendering within the WordPress admin interface.
+ * The Plugin Settings.
  *
- * It handles options initialization, enqueuing scripts and styles,
- * and integrating with the WordPress REST API.
+ * This class manages the plugin's settings including registering the
+ * setting options, enqueuing the scripts and the styles, and
+ * rendring the settings page.
  */
 class Settings implements WithHook, InlineScript
 {
@@ -29,8 +29,8 @@ class Settings implements WithHook, InlineScript
 	private OptionRegistry $options;
 
 	/**
-	 * The filename of the distribution files (JavaScript and Stylesheet) for the
-	 * settings page.
+	 * The filename of the compiled JavaScript and Stylesheet file to enqueue
+	 * and load on the settings page.
 	 */
 	private string $distFile = 'components-settings';
 
@@ -38,21 +38,19 @@ class Settings implements WithHook, InlineScript
 	{
 
 		/**
-		 * Define the plugin options and their default values in the registry.
-		 *
-		 * This ensures options are correctly stored, retrieved, has a
-		 * default value, and necessary validation.
+		 * Defines the plugin options to ensures options are handled, stored, and
+		 * has a default value, and necessary validation.
 		 */
 		$this->options = new OptionRegistry([
 			(new Option('greeting', 'string'))
 				->setDefault('Hello World!')
 				->apiEnabled(true)
 		]);
-		$this->options->setPrefix(snakecased(WP_STARTER_PLUGIN_NAME) . '_');
+		$this->options->setPrefix(snakecased(WP_STARTER_PLUGIN_NAME) . '_'); // `wp_starter_plugin_`.
 
 		/**
-		 * Initialize the Enqueue class to manage scripts and styles for the
-		 * settings page.
+		 * Defines the configs for enqueuing the scripts and stylessheet files on
+		 * the settings page.
 		 */
 		$this->enqueue = new Enqueue(
 			$plugin->getDirectoryPath('dist'),
@@ -110,6 +108,15 @@ class Settings implements WithHook, InlineScript
 		}
 	}
 
+	/**
+	 * Render the plugin settings page.
+	 *
+	 * Called when user navigates to the plugin settings page. It will render
+	 * the page only with base HTML. The settings form, inputs, buttons
+	 * will be rendered through React components.
+	 *
+	 * @see ./src/components/Settings
+	 */
 	private function renderPage(): void
 	{
 		if (! current_user_can('manage_options')) {
@@ -118,7 +125,7 @@ class Settings implements WithHook, InlineScript
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<div id="wp-starter-plugin-settings"></div>
+			<div id="<?php echo esc_attr(WP_STARTER_PLUGIN_NAME) ?>-settings"></div>
 		</div>
 		<?php
 	}

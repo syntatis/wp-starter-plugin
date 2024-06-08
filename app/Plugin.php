@@ -15,9 +15,11 @@ use function WPStarterPlugin\Vendor\Syntatis\WPHelpers\is_plugin_updated;
 use const DIRECTORY_SEPARATOR;
 
 /**
- * This class serves as the main entry point for the WP Starter Plugin. It handles
- * the initialization of core functionalities such as settings, blocks, and hooks,
- * and manages activation, deactivation, and update processes.
+ * The Plugin.
+ *
+ * Serves as the main entry point for plugin, handling the initialization
+ * of core functionalities such as settings, blocks, and hooks, and
+ * manages activation, deactivation, and update processes.
  */
 class Plugin
 {
@@ -35,8 +37,7 @@ class Plugin
 		$this->hook = new Hook();
 
 		/**
-		 * Initialize the plugin's core components.
-		 * This includes registering settings, blocks, and other custom functionalities.
+		 * Initialize the plugin's main features and components.
 		 */
 		$this->blocks = new Blocks($this);
 		$this->settings = new Settings($this);
@@ -59,7 +60,9 @@ class Plugin
 
 		/**
 		 * Fires after the plugin is fully initialized.
-		 * Use this action to perform tasks that need to be done after the plugin is loaded.
+		 *
+		 * Use this action to perform tasks that need to be done after the plugin
+		 * is loaded.
 		 */
 		do_action('wp_starter_plugin/init', $this);
 	}
@@ -106,8 +109,8 @@ class Plugin
 	/**
 	 * Handle actions required when the plugin is updated.
 	 *
-	 * This method performs tasks such as database updates, compatibility checks,
-	 * and cache clearing when the plugin is updated.
+	 * Use this method performs tasks such as database updates, compatibility
+	 * checks, and cache clearing when the plugin is updated.
 	 *
 	 * @param WP_Upgrader                                            $upgrader  The WP_Upgrader instance.
 	 * @param array{action:string,type:string,plugins:array<string>} $hookExtra Additional information about the update process.
