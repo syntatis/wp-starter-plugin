@@ -9,7 +9,6 @@ use WPStarterPlugin\Vendor\Syntatis\WPHelpers\Enqueue\Enqueue;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Contract\WithHook;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 
-use function dirname;
 use function trim;
 use function WPStarterPlugin\Vendor\Syntatis\Utils\is_blank;
 use function WPStarterPlugin\Vendor\Syntatis\WPHelpers\is_plugin_updated;
@@ -52,13 +51,10 @@ class Plugin
 
 	public function init(): void
 	{
-		load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname($this->basename) . '/languages/');
 		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
 		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
 
-		$instances = $this->getInstances();
-
-		foreach ($instances as $instance) {
+		foreach ($this->getInstances() as $instance) {
 			if (! ($instance instanceof WithHook)) {
 				continue;
 			}

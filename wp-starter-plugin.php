@@ -82,3 +82,5 @@ require WP_STARTER_PLUGIN__DIR__ . '/dist-autoload/vendor/scoper-autoload.php';
 
 $plugin = new Plugin();
 $plugin->init();
+
+load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname($plugin->getBasename()) . '/languages/');
