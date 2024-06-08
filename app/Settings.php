@@ -6,34 +6,26 @@ declare(strict_types=1);
 
 namespace WPStarterPlugin;
 
+use WPStarterPlugin\Vendor\Syntatis\WPHelpers\Contracts\InlineScript;
+use WPStarterPlugin\Vendor\Syntatis\WPHelpers\Enqueue\Enqueue;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Contract\WithHook;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 use WPStarterPlugin\Vendor\Syntatis\WPOption\Option;
-use WPStarterPlugin\Vendor\Syntatis\WPOption\Registry;
+use WPStarterPlugin\Vendor\Syntatis\WPOption\Registry as OptionRegistry;
+
+use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
 
 /**
  * This class manages the plugin's settings, including their registration,
- * loading, and rendering within the WordPress admin interface. It handles
- * options initialization, enqueuing scripts and styles, and integrating
- * with the WordPress REST API.
+ * loading, and rendering within the WordPress admin interface. It
+ * handles options initialization, enqueuing scripts and styles,
+ * and integrating with the WordPress REST API.
  */
-class Settings implements WithHook
+class Settings implements WithHook, InlineScript
 {
 	private Enqueue $enqueue;
 
-	private Registry $registry;
-
-	/**
-     * The option name prefix used to ensure unique and consistent option names.
-     */
-	private string $optionPrefix = 'wp_starter_plugin_';
-
-	/**
-     * The group name for registering plugin settings.
-     *
-     * @see https://developer.wordpress.org/reference/functions/register_setting/
-     */
-	private string $group = 'wp_starter_plugin';
+	private OptionRegistry $options;
 
 	/**
      * The filename of the distribution files (JavaScript and Stylesheet) for the
@@ -41,25 +33,32 @@ class Settings implements WithHook
      */
 	private string $distFile = 'components-settings';
 
-	/**
-     * The initial settings values loaded on page load. Defaults are used if not
-	 * set in the database.
-     */
-	private ?string $values = null;
-
-	public function __construct(Enqueue $enqueue)
+	public function __construct(Plugin $plugin)
 	{
+
 		/**
          * Define the plugin options and their default values in the registry.
-         * This ensures options are correctly stored, retrieved, and defaulted.
+		 *
+         * This ensures options are correctly stored, retrieved, has a default
+		 * value, and necessary validation.
          */
-		$this->registry = new Registry([
+		$this->options = new OptionRegistry([
 			(new Option('greeting', 'string'))
 				->setDefault('Hello World!')
 				->apiEnabled(true)
 		]);
-		$this->registry->setPrefix($this->optionPrefix);
-		$this->enqueue = $enqueue;
+		$this->options->setPrefix(snakecased(WP_STARTER_PLUGIN_NAME) . '_');
+
+		/**
+		 * Initialize the Enqueue class to manage scripts and styles for the
+		 * settings page.
+		 */
+		$this->enqueue = new Enqueue(
+			$plugin->getDirectoryPath('dist'),
+			$plugin->getDirectoryURL('dist'),
+		);
+		$this->enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
+		$this->enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, $plugin->getDirectoryPath('languages'));
 	}
 
 	/**
@@ -67,14 +66,12 @@ class Settings implements WithHook
 	 */
 	public function hook(Hook $hook): void
 	{
-		$register = fn () => $this->registerSettings();
-	
-		$hook->addAction('rest_api_init', $register);
-		$hook->addAction('admin_init', $register);
+		$hook->addAction('rest_api_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
+		$hook->addAction('admin_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
 		$hook->addAction('admin_menu', fn () => $this->addMenu());
 		$hook->addAction('admin_enqueue_scripts', fn (string $hook) => $this->enqueueScripts($hook));
 
-		$this->registry->hook($hook);
+		$this->options->hook($hook);
 	}
 
 	/**
@@ -105,20 +102,11 @@ class Settings implements WithHook
 			$adminPage === 'post-new.php'
 		) {
 			$this->enqueue->addStyle($this->distFile);
-			$this->enqueue->addScript($this->distFile);
-			$this->enqueue->addInlineScript(
-				$this->distFile,
-				'window.__wpStarterPlugin = Object.assign(window.__wpStarterPlugin||{},{"settings":' . $this->values . '})',
-				'before'
-			);
-			$this->enqueue->all();
-		}
-	}
+			$this->enqueue->styles();
 
-	private function registerSettings(): void
-	{
-		$this->registry->register($this->group);
-		$this->values = json_encode($this->registry);
+			$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
+			$this->enqueue->scripts();
+		}
 	}
 
 	private function renderPage(): void
@@ -132,5 +120,15 @@ class Settings implements WithHook
 			<div id="wp-starter-plugin-settings"></div>
 		</div>
 		<?php
+	}
+
+	public function getInlineScriptPosition(): string
+	{
+		return 'before';
+	}
+
+	public function getInlineScriptContent(): string
+	{
+		return 'window.__wpStarterPluginSettings = ' . json_encode($this->options);
 	}
 }

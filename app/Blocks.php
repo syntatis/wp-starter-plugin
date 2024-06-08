@@ -8,14 +8,16 @@ use RecursiveDirectoryIterator;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Contract\WithHook;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 
+use const DIRECTORY_SEPARATOR;
+
 class Blocks implements WithHook
 {
 	private RecursiveDirectoryIterator $blocks;
 
-	public function __construct()
+	public function __construct(Plugin $plugin)
 	{
 		$this->blocks = new RecursiveDirectoryIterator(
-			WP_STARTER_PLUGIN__DIR__ . '/dist/blocks',
+			$plugin->getDirectoryPath('dist' . DIRECTORY_SEPARATOR . 'blocks'),
 			RecursiveDirectoryIterator::SKIP_DOTS,
 		);
 	}
