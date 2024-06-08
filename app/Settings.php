@@ -17,8 +17,9 @@ use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
 
 /**
  * This class manages the plugin's settings, including their registration,
- * loading, and rendering within the WordPress admin interface. It
- * handles options initialization, enqueuing scripts and styles,
+ * loading, and rendering within the WordPress admin interface.
+ *
+ * It handles options initialization, enqueuing scripts and styles,
  * and integrating with the WordPress REST API.
  */
 class Settings implements WithHook, InlineScript
@@ -28,20 +29,20 @@ class Settings implements WithHook, InlineScript
 	private OptionRegistry $options;
 
 	/**
-     * The filename of the distribution files (JavaScript and Stylesheet) for the
+	 * The filename of the distribution files (JavaScript and Stylesheet) for the
 	 * settings page.
-     */
+	 */
 	private string $distFile = 'components-settings';
 
 	public function __construct(Plugin $plugin)
 	{
 
 		/**
-         * Define the plugin options and their default values in the registry.
+		 * Define the plugin options and their default values in the registry.
 		 *
-         * This ensures options are correctly stored, retrieved, has a default
-		 * value, and necessary validation.
-         */
+		 * This ensures options are correctly stored, retrieved, has a
+		 * default value, and necessary validation.
+		 */
 		$this->options = new OptionRegistry([
 			(new Option('greeting', 'string'))
 				->setDefault('Hello World!')
