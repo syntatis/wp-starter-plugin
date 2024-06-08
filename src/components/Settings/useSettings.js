@@ -3,11 +3,10 @@ import { __ } from '@wordpress/i18n';
 import { useState } from 'react';
 import { getAllOptions } from '../../helpers/option';
 
-const REGISTERED_SETTINGS = [ 'wp_starter_plugin_greeting' ];
-
+const allOptions = getAllOptions();
 const filterValues = ( values ) => {
 	for ( const name in values ) {
-		if ( ! REGISTERED_SETTINGS.includes( name ) ) {
+		if ( ! Object.keys( allOptions ).includes( name ) ) {
 			delete values[ name ];
 		}
 	}
@@ -16,7 +15,7 @@ const filterValues = ( values ) => {
 };
 
 export const useSettings = () => {
-	const [ values, setValues ] = useState( getAllOptions() );
+	const [ values, setValues ] = useState( allOptions );
 	const [ status, setStatus ] = useState();
 	const [ statusText, setStatusText ] = useState();
 
@@ -49,12 +48,14 @@ export const useSettings = () => {
 		updateValues( formData ) {
 			const newValues = {};
 			for ( const entry of formData.entries() ) {
-				if ( REGISTERED_SETTINGS.includes( entry[ 0 ] ) ) {
+				if ( Object.keys( allOptions ).includes( entry[ 0 ] ) ) {
 					newValues[ entry[ 0 ] ] = entry[ 1 ];
 				}
 			}
 			updateValues( newValues );
 		},
 		updateStatus: setStatus,
+		pluginName: window.__wpStarterPlugin?.pluginName,
+		optionPrefix: window.__wpStarterPlugin?.optionPrefix,
 	};
 };
