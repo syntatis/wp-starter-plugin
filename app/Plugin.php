@@ -5,15 +5,10 @@ declare(strict_types=1);
 namespace WPStarterPlugin;
 
 use WP_Upgrader;
-use WPStarterPlugin\Vendor\Syntatis\WPHelpers\Enqueue\Enqueue;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Contract\WithHook;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 
-use function trim;
-use function WPStarterPlugin\Vendor\Syntatis\Utils\is_blank;
 use function WPStarterPlugin\Vendor\Syntatis\WPHelpers\is_plugin_updated;
-
-use const DIRECTORY_SEPARATOR;
 
 /**
  * The Plugin.
@@ -24,8 +19,6 @@ use const DIRECTORY_SEPARATOR;
  */
 class Plugin
 {
-	private string $basename;
-
 	private Hook $hook;
 
 	private Blocks $blocks;
@@ -34,7 +27,6 @@ class Plugin
 
 	public function __construct()
 	{
-		$this->basename = plugin_basename(WP_STARTER_PLUGIN__FILE__);
 		$this->hook = new Hook();
 	}
 
@@ -45,8 +37,8 @@ class Plugin
 	 */
 	private function getInstances(): iterable
 	{
-		yield new Blocks($this);
-		yield new Settings($this);
+		yield new Blocks();
+		yield new Settings();
 	}
 
 	public function init(): void
@@ -77,61 +69,6 @@ class Plugin
 		do_action('wp_starter_plugin/init', $this);
 	}
 
-	public function getBasename(): string
-	{
-		return $this->basename;
-	}
-
-	/**
-	 * Retrieve the path to a file or directory within the plugin.
-	 *
-	 * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
-	 * @return string The full path to the file or directory, withtout the trailingslash e.g. '/wp-content/plugins/wp-starter-plugin/dist'.
-	 */
-	public function getDirectoryPath(?string $path = null): string
-	{
-		$path = trim($path, DIRECTORY_SEPARATOR);
-
-		if (is_blank($path)) {
-			return WP_STARTER_PLUGIN__DIR__;
-		}
-
-		return untrailingslashit(WP_STARTER_PLUGIN__DIR__ . DIRECTORY_SEPARATOR . $path);
-	}
-
-	/**
-	 * Retrieve the URL to a file or directory within the plugin.
-	 *
-	 * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
-	 * @return string The full URL to the file or directory, withtout the trailingslash e.g. 'https://example.com/wp-content/plugins/wp-starter-plugin/dist'.
-	 */
-	public function getDirectoryURL(?string $path = null): string
-	{
-		$dirUrl = plugin_dir_url(WP_STARTER_PLUGIN__FILE__);
-
-		if (is_blank($path)) {
-			return untrailingslashit($dirUrl);
-		}
-
-		return untrailingslashit($dirUrl . $path);
-	}
-
-	/**
-	 * Factory method to create a new instance of `Enqueue` for enqueuing the
-	 * scripts and stylessheet files.
-	 */
-	public function createEnqueue(): Enqueue
-	{
-		$enqueue = new Enqueue(
-			$this->getDirectoryPath('dist'),
-			$this->getDirectoryURL('dist'),
-		);
-		$enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
-		$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, $this->getDirectoryPath('languages'));
-
-		return $enqueue;
-	}
-
 	/**
 	 * Handle actions required when the plugin is updated.
 	 *
@@ -143,7 +80,7 @@ class Plugin
 	 */
 	private function update(WP_Upgrader $upgrader, array $hookExtra): void
 	{
-		if (! is_plugin_updated($this->basename, $hookExtra)) {
+		if (! is_plugin_updated(get_plugin_basename(), $hookExtra)) {
 			return;
 		}
 

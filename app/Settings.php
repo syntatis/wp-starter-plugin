@@ -27,12 +27,12 @@ class Settings implements WithHook, InlineScript
 
 	private OptionRegistry $options;
 
-	public function __construct(Plugin $plugin)
+	public function __construct()
 	{
 		/**
 		 * Defines the scripts and styles to be enqueued on the settings page.
 		 */
-		$this->enqueue = $plugin->createEnqueue();
+		$this->enqueue = enqueue();
 		$this->enqueue->addStyle('settings');
 		$this->enqueue->addScript('settings', ['localized' => true])->withInlineScripts($this);
 

@@ -14,10 +14,10 @@ class Blocks implements WithHook
 {
 	private RecursiveDirectoryIterator $blocks;
 
-	public function __construct(Plugin $plugin)
+	public function __construct()
 	{
 		$this->blocks = new RecursiveDirectoryIterator(
-			$plugin->getDirectoryPath('dist' . DIRECTORY_SEPARATOR . 'blocks'),
+			get_directory_path('dist' . DIRECTORY_SEPARATOR . 'blocks'),
 			RecursiveDirectoryIterator::SKIP_DOTS,
 		);
 	}

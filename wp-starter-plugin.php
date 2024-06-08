@@ -22,7 +22,11 @@ declare(strict_types=1);
  * Domain Path:       /languages
  */
 
-use WPStarterPlugin\Plugin;
+namespace WPStarterPlugin;
+
+use function define;
+use function defined;
+use function dirname;
 
 // If this file is called directly, abort.
 if (! defined('WPINC')) {
@@ -79,8 +83,9 @@ define('WP_STARTER_PLUGIN__FILE__', __FILE__);
  * @see https://deliciousbrains.com/php-scoper-namespace-composer-dependencies/
  */
 require WP_STARTER_PLUGIN__DIR__ . '/dist-autoload/vendor/scoper-autoload.php';
+require WP_STARTER_PLUGIN__DIR__ . '/inc/helpers.php';
 
 $plugin = new Plugin();
 $plugin->init();
 
-load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname($plugin->getBasename()) . '/languages/');
+load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname(get_plugin_basename()) . '/languages/');
