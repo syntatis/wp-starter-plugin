@@ -49,15 +49,19 @@ export const Form = () => {
 					<table className="form-table" role="presentation">
 						<tbody>
 							<tr>
-								<th
-									id={ `${ pluginName }-settings-greeting` }
-									scope="row"
-								>
-									{ __( 'Greeting', 'wp-starter-plugin' ) }
+								<th scope="row">
+									<label
+										htmlFor={ `${ pluginName }-settings-greeting` }
+									>
+										{ __(
+											'Greeting',
+											'wp-starter-plugin'
+										) }
+									</label>
 								</th>
 								<td>
 									<TextField
-										aria-labelledby={ `${ pluginName }-settings-greeting` }
+										id={ `${ pluginName }-settings-greeting` }
 										className="regular-text"
 										defaultValue={ getOption(
 											`${ optionPrefix }greeting`
