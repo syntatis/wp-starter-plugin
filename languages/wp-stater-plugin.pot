@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-25T15:18:59+00:00\n"
+"POT-Creation-Date: 2024-06-08T08:11:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wp-starter-plugin\n"
@@ -39,41 +39,41 @@ msgstr ""
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
-#: app/Settings.php:88
+#: app/Settings.php:83
 msgid "Starter Plugin Settings"
 msgstr ""
 
-#: app/Settings.php:89
+#: app/Settings.php:84
 msgid "Starter Plugin"
 msgstr ""
 
-#: dist/components-settings.js:61
-#: src/components/Settings/Form.jsx:47
-#: dist/components-settings.js:47
+#: dist/components-settings.js:66
+#: src/components/Settings/Form.jsx:48
+#: dist/components-settings.js:48
 msgid "Greeting"
 msgstr ""
 
-#: dist/components-settings.js:72
-#: src/components/Settings/Form.jsx:70
-#: dist/components-settings.js:70
+#: dist/components-settings.js:84
+#: src/components/Settings/Form.jsx:71
+#: dist/components-settings.js:71
 msgid "Updating Settings"
 msgstr ""
 
+#: dist/components-settings.js:84
+#: src/components/Settings/Form.jsx:72
 #: dist/components-settings.js:72
-#: src/components/Settings/Form.jsx:71
-#: dist/components-settings.js:71
 msgid "Update Settings"
 msgstr ""
 
-#: dist/components-settings.js:120
+#: dist/components-settings.js:136
 #: src/components/Settings/useSettings.js:35
-#: dist/components-settings.js:113
+#: dist/components-settings.js:114
 msgid "Error updating settings."
 msgstr ""
 
-#: dist/components-settings.js:123
+#: dist/components-settings.js:139
 #: src/components/Settings/useSettings.js:40
-#: dist/components-settings.js:118
+#: dist/components-settings.js:119
 msgid "Settings updated."
 msgstr ""
 
