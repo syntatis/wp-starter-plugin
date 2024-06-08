@@ -20,8 +20,6 @@ class Plugin
 
 	private Hook $hook;
 
-	private Enqueue $enqueue;
-
 	private Blocks $blocks;
 
 	private Settings $settings;
@@ -30,14 +28,13 @@ class Plugin
 	{
 		$this->basename = plugin_basename(WP_STARTER_PLUGIN__FILE__);
 		$this->hook = new Hook();
-		$this->enqueue = new Enqueue();
 
 		/**
 		 * Initialize the plugin's core components.
 		 * This includes registering settings, blocks, and other custom functionalities.
 		 */
 		$this->blocks = new Blocks();
-		$this->settings = new Settings($this->enqueue);
+		$this->settings = new Settings();
 	}
 
 	public function init(): void

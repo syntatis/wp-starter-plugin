@@ -23,7 +23,7 @@
 	"require": {
 		"php": ">=7.4",
 		"syntatis/utils": "^1.0",
-		"syntatis/wp-helpers": "^0.1",
+		"syntatis/wp-helpers": "^0.2",
 		"syntatis/wp-hook": "^2.0",
 		"syntatis/wp-option": "^2.1"
 	},
