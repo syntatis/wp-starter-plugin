@@ -106,7 +106,7 @@ class Settings implements WithHook, InlineScript
 	 * the page only with base HTML. The settings form, inputs, buttons
 	 * will be rendered through React components.
 	 *
-	 * @see ./src/components/Settings
+	 * @see ./src/settings
 	 */
 	private function renderPage(): void
 	{
