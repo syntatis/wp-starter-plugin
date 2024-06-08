@@ -55,7 +55,5 @@ export const useSettings = () => {
 			updateValues( newValues );
 		},
 		updateStatus: setStatus,
-		pluginName: window.__wpStarterPlugin?.pluginName,
-		optionPrefix: window.__wpStarterPlugin?.optionPrefix,
 	};
 };

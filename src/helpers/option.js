@@ -1,5 +1,5 @@
 export function getAllOptions() {
-	return window.__wpStarterPlugin?.settings?.options;
+	return window.__wpStarterPluginSettings?.options;
 }
 
 /**

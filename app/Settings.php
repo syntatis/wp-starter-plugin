@@ -28,39 +28,33 @@ class Settings implements WithHook, InlineScript
 
 	private OptionRegistry $options;
 
-	private string $optionPrefix;
-
 	/**
 	 * The filename of the compiled JavaScript and Stylesheet file to enqueue
 	 * and load on the settings page.
 	 */
-	private string $distFile = 'components-settings';
+	private const DIST_FILE = 'components-settings';
 
 	public function __construct(Plugin $plugin)
 	{
-		$this->optionPrefix = snakecased(WP_STARTER_PLUGIN_NAME) . '_';  // `wp_starter_plugin_`.
+		/**
+		 * Defines the scripts and styles to be enqueued on the settings page.
+		 */
+		$this->enqueue = $plugin->getEnqueue();
+		$this->enqueue->addStyle(self::DIST_FILE);
+		$this->enqueue->addScript(self::DIST_FILE, ['localized' => true])->withInlineScripts($this);
 
 		/**
 		 * Defines the plugin options to ensures options are handled, stored, and
 		 * has a default value, and necessary validation.
 		 */
-		$this->options = new OptionRegistry([
-			(new Option('greeting', 'string'))
-				->setDefault('Hello World!')
-				->apiEnabled(true)
-		]);
-		$this->options->setPrefix($this->optionPrefix);
-
-		/**
-		 * Defines the configs for enqueuing the scripts and stylessheet files on
-		 * the settings page.
-		 */
-		$this->enqueue = new Enqueue(
-			$plugin->getDirectoryPath('dist'),
-			$plugin->getDirectoryURL('dist'),
+		$this->options = new OptionRegistry(
+			[
+				(new Option('greeting', 'string'))
+					->setDefault('Hello World!')
+					->apiEnabled(true),
+			]
 		);
-		$this->enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
-		$this->enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, $plugin->getDirectoryPath('languages'));
+		$this->options->setPrefix('wp_starter_plugin_');
 	}
 
 	/**
@@ -101,14 +95,16 @@ class Settings implements WithHook, InlineScript
 		/**
 		 * List of admin pages where the plugin scripts and stylesheet should load.
 		 */
-		$adminPages = ['settings_page_' . WP_STARTER_PLUGIN_NAME, 'post.php', 'post-new.php'];
+		$adminPages = [
+			'settings_page_' . WP_STARTER_PLUGIN_NAME,
+			'post.php',
+			'post-new.php'
+		];
 
 		if (!in_array($adminPage, $adminPages, true)) {
 			return;
 		}
 
-		$this->enqueue->addStyle($this->distFile);
-		$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
 		$this->enqueue->scripts();
 		$this->enqueue->styles();
 	}
@@ -142,10 +138,6 @@ class Settings implements WithHook, InlineScript
 
 	public function getInlineScriptContent(): string
 	{
-		return 'window.__wpStarterPlugin = ' . json_encode([
-			'pluginName' => WP_STARTER_PLUGIN_NAME,
-			'optionPrefix' => $this->optionPrefix,
-			'settings' => $this->options,
-		]) . ';';
+		return 'window.__wpStarterPluginSettings = ' . json_encode($this->options) . ';';
 	}
 }

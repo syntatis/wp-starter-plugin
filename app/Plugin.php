@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace WPStarterPlugin;
 
 use WP_Upgrader;
+use WPStarterPlugin\Vendor\Syntatis\WPHelpers\Enqueue\Enqueue;
+use WPStarterPlugin\Vendor\Syntatis\WPHook\Contract\WithHook;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 
 use function dirname;
@@ -18,7 +20,7 @@ use const DIRECTORY_SEPARATOR;
  * The Plugin.
  *
  * Serves as the main entry point for plugin, handling the initialization
- * of core functionalities such as settings, blocks, and hooks, and
+ * of core functionalities such as the settings, blocks, and hooks, and
  * manages activation, deactivation, and update processes.
  */
 class Plugin
@@ -35,12 +37,17 @@ class Plugin
 	{
 		$this->basename = plugin_basename(WP_STARTER_PLUGIN__FILE__);
 		$this->hook = new Hook();
+	}
 
-		/**
-		 * Initialize the plugin's main features and components.
-		 */
-		$this->blocks = new Blocks($this);
-		$this->settings = new Settings($this);
+	/**
+	 * Initialize the plugin's features and components.
+	 *
+	 * @return iterable<WithHook|object>
+	 */
+	private function getInstances(): iterable
+	{
+		yield new Blocks($this);
+		yield new Settings($this);
 	}
 
 	public function init(): void
@@ -49,8 +56,15 @@ class Plugin
 		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
 		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
 
-		$this->blocks->hook($this->hook);
-		$this->settings->hook($this->hook);
+		$instances = $this->getInstances();
+
+		foreach ($instances as $instance) {
+			if (! ($instance instanceof WithHook)) {
+				continue;
+			}
+
+			$instance->hook($this->hook);
+		}
 
 		$this->hook->addAction(
 			'upgrader_process_complete',
@@ -97,13 +111,29 @@ class Plugin
 	 */
 	public function getDirectoryURL(?string $path = null): string
 	{
-		$dirUrl = untrailingslashit(plugin_dir_url(WP_STARTER_PLUGIN__FILE__));
+		$dirUrl = plugin_dir_url(WP_STARTER_PLUGIN__FILE__);
 
 		if (is_blank($path)) {
-			return $dirUrl;
+			return untrailingslashit($dirUrl);
 		}
 
-		return untrailingslashit($dirUrl . '/' . $path);
+		return untrailingslashit($dirUrl . $path);
+	}
+
+	/**
+	 * Factory method to create a new instance of `Enqueue` for enqueuing the
+	 * scripts and stylessheet files.
+	 */
+	public function getEnqueue(): Enqueue
+	{
+		$enqueue = new Enqueue(
+			$this->getDirectoryPath('dist'),
+			$this->getDirectoryURL('dist'),
+		);
+		$enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
+		$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, $this->getDirectoryPath('languages'));
+
+		return $enqueue;
 	}
 
 	/**

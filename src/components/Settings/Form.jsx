@@ -10,22 +10,15 @@ import { getOption } from '../../helpers/option';
 import '@syntatis/wp-classic-components/dist/index.css';
 
 export const Form = () => {
-	const {
-		optionPrefix,
-		pluginName,
-		status,
-		statusText,
-		updateStatus,
-		updateValues,
-		values,
-	} = useSettings();
+	const settings = useSettings();
 
-	if ( ! values ) {
+	if ( ! settings.values ) {
 		return;
 	}
 
-	const idPrefix = `${ pluginName }-settings-`;
+	const { status, statusText, updateStatus, updateValues } = settings;
 	const isUpdating = status === 'updating';
+	const idPrefix = 'wp-starter-plugin-settings-';
 
 	return (
 		<>
@@ -63,9 +56,9 @@ export const Form = () => {
 										id={ `${ idPrefix }greeting` }
 										className="regular-text"
 										defaultValue={ getOption(
-											`${ optionPrefix }greeting`
+											'wp_starter_plugin_greeting'
 										) }
-										name={ `${ optionPrefix }greeting` }
+										name="wp_starter_plugin_greeting"
 									/>
 								</td>
 							</tr>
