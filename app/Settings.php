@@ -20,7 +20,7 @@ use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
  *
  * This class manages the plugin's settings including registering the
  * setting options, enqueuing the scripts and the styles, and
- * rendring the settings page.
+ * rendering the settings page.
  */
 class Settings implements WithHook, InlineScript
 {
