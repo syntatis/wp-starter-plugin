@@ -33,7 +33,11 @@
 		"symfony/var-dumper": "^5.4",
 		"syntatis/coding-standard": "^1.1"
 	},
+	"minimum-stability": "stable",
+    "prefer-stable": true,
 	"scripts": {
+		"phpcs:fix": "phpcbf",
+		"phpcs": "phpcs",
 		"scope": [
 			"@composer require bamarni/composer-bin-plugin",
 			"@composer bin php-scoper require -W humbug/php-scoper:*",
@@ -43,15 +47,14 @@
 			"@composer bin php-scoper remove humbug/php-scoper",
 			"@composer remove bamarni/composer-bin-plugin"
 		],
-		"phpcs:fix": "phpcbf",
-		"phpcs": "phpcs",
 		"post-create-project-cmd": [
 			"@composer scope",
 			"@composer install"
 		]
 	},
-	"minimum-stability": "stable",
-    "prefer-stable": true,
+	"scripts-descriptions": {
+        "scope": "Scope the autoloader to prevent conflicts with other plugins"
+    },
 	"config": {
 		"optimize-autoloader": true,
         "preferred-install": "dist",
