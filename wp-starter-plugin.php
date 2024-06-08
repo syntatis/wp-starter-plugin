@@ -48,6 +48,14 @@ define('WP_STARTER_PLUGIN_VERSION', '1.0.0');
 define('WP_STARTER_PLUGIN_NAME', 'wp-starter-plugin');
 
 /**
+ * Define the directory path to the plugin file.
+ *
+ * This constant provides a convenient reference to the plugin's directory path,
+ * useful for including or requiring files relative to this directory.
+ */
+define('WP_STARTER_PLUGIN__DIR__', __DIR__);
+
+/**
  * Define the path to the plugin file.
  *
  * This path can be used in various contexts, such as managing the activation
@@ -55,14 +63,6 @@ define('WP_STARTER_PLUGIN_NAME', 'wp-starter-plugin');
  * links, and more.
  */
 define('WP_STARTER_PLUGIN__FILE__', __FILE__);
-
-/**
- * Define the directory path to the plugin file.
- *
- * This constant provides a convenient reference to the plugin's directory path,
- * useful for including or requiring files relative to this directory.
- */
-define('WP_STARTER_PLUGIN__DIR__', __DIR__);
 
 /**
  * Load dependencies using the Composer autoloader.

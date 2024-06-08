@@ -13,6 +13,8 @@ use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 use WPStarterPlugin\Vendor\Syntatis\WPOption\Option;
 use WPStarterPlugin\Vendor\Syntatis\WPOption\Registry as OptionRegistry;
 
+use function WPStarterPlugin\Vendor\Syntatis\Utils\snakecased;
+
 /**
  * This class manages the plugin's settings, including their registration,
  * loading, and rendering within the WordPress admin interface. It
@@ -23,25 +25,7 @@ class Settings implements WithHook, InlineScript
 {
 	private Enqueue $enqueue;
 
-	private OptionRegistry $optionRegistry;
-
-	/**
-     * The option name prefix used to ensure unique and consistent option names.
-     */
-	private string $optionPrefix = 'wp_starter_plugin_';
-
-	/**
-	 * The prefix used on the handle for enqueuing scripts and styles.
-	 */
-	private string $enqueuePrefix = WP_STARTER_PLUGIN_NAME;
-
-	/**
-     * The group name for registering plugin settings.
-     *
-     * @see https://developer.wordpress.org/reference/functions/register_setting/
-     */
-	private string $group = 'wp_starter_plugin';
-
+	private OptionRegistry $options;
 
 	/**
      * The filename of the distribution files (JavaScript and Stylesheet) for the
@@ -49,32 +33,32 @@ class Settings implements WithHook, InlineScript
      */
 	private string $distFile = 'components-settings';
 
-	/**
-     * The initial settings values loaded on page load. Defaults are used if not
-	 * set in the database.
-     */
-	private ?string $values = null;
-
-	public function __construct()
+	public function __construct(Plugin $plugin)
 	{
+
 		/**
          * Define the plugin options and their default values in the registry.
-         * This ensures options are correctly stored, retrieved, and defaulted.
+		 *
+         * This ensures options are correctly stored, retrieved, has a default
+		 * value, and necessary validation.
          */
-		$this->optionRegistry = new OptionRegistry([
+		$this->options = new OptionRegistry([
 			(new Option('greeting', 'string'))
 				->setDefault('Hello World!')
 				->apiEnabled(true)
 		]);
+		$this->options->setPrefix(snakecased(WP_STARTER_PLUGIN_NAME) . '_');
 
+		/**
+		 * Initialize the Enqueue class to manage scripts and styles for the
+		 * settings page.
+		 */
 		$this->enqueue = new Enqueue(
-			WP_STARTER_PLUGIN__DIR__ . '/dist',
-			plugin_dir_url(WP_STARTER_PLUGIN__FILE__) . 'dist',
+			$plugin->getDirectoryPath('dist'),
+			$plugin->getDirectoryURL('dist'),
 		);
-
-		$this->optionRegistry->setPrefix($this->optionPrefix);
-		$this->enqueue->setPrefix($this->enqueuePrefix);
-		$this->enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, WP_STARTER_PLUGIN__DIR__ . '/languages');
+		$this->enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
+		$this->enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, $plugin->getDirectoryPath('languages'));
 	}
 
 	/**
@@ -82,12 +66,12 @@ class Settings implements WithHook, InlineScript
 	 */
 	public function hook(Hook $hook): void
 	{
-		$hook->addAction('rest_api_init', fn () => $this->optionRegistry->register($this->group));
-		$hook->addAction('admin_init', fn () => $this->optionRegistry->register($this->group));
+		$hook->addAction('rest_api_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
+		$hook->addAction('admin_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
 		$hook->addAction('admin_menu', fn () => $this->addMenu());
 		$hook->addAction('admin_enqueue_scripts', fn (string $hook) => $this->enqueueScripts($hook));
 
-		$this->optionRegistry->hook($hook);
+		$this->options->hook($hook);
 	}
 
 	/**
@@ -119,6 +103,7 @@ class Settings implements WithHook, InlineScript
 		) {
 			$this->enqueue->addStyle($this->distFile);
 			$this->enqueue->styles();
+
 			$this->enqueue->addScript($this->distFile, ['localized' => true])->withInlineScripts($this);
 			$this->enqueue->scripts();
 		}
@@ -144,6 +129,6 @@ class Settings implements WithHook, InlineScript
 
 	public function getInlineScriptContent(): string
 	{
-		return 'window.__wpStarterPluginSettings = ' . json_encode($this->optionRegistry);
+		return 'window.__wpStarterPluginSettings = ' . json_encode($this->options);
 	}
 }

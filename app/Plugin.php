@@ -7,7 +7,12 @@ namespace WPStarterPlugin;
 use WP_Upgrader;
 use WPStarterPlugin\Vendor\Syntatis\WPHook\Hook;
 
+use function dirname;
+use function trim;
+use function WPStarterPlugin\Vendor\Syntatis\Utils\is_blank;
 use function WPStarterPlugin\Vendor\Syntatis\WPHelpers\is_plugin_updated;
+
+use const DIRECTORY_SEPARATOR;
 
 /**
  * This class serves as the main entry point for the WP Starter Plugin. It handles
@@ -33,20 +38,23 @@ class Plugin
 		 * Initialize the plugin's core components.
 		 * This includes registering settings, blocks, and other custom functionalities.
 		 */
-		$this->blocks = new Blocks();
-		$this->settings = new Settings();
+		$this->blocks = new Blocks($this);
+		$this->settings = new Settings($this);
 	}
 
 	public function init(): void
 	{
-		load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, $this->basename . '/languages/');
+		load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname($this->basename) . '/languages/');
 		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
 		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
 
 		$this->blocks->hook($this->hook);
 		$this->settings->hook($this->hook);
 
-		$this->hook->addAction('upgrader_process_complete', fn (WP_Upgrader $upgrader, array $hookExtra) => $this->update($upgrader, $hookExtra));
+		$this->hook->addAction(
+			'upgrader_process_complete',
+			fn (WP_Upgrader $upgrader, array $hookExtra) => $this->update($upgrader, $hookExtra),
+		);
 		$this->hook->run();
 
 		/**
@@ -59,6 +67,40 @@ class Plugin
 	public function getBasename(): string
 	{
 		return $this->basename;
+	}
+
+	/**
+	 * Retrieve the path to a file or directory within the plugin.
+	 *
+	 * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
+	 * @return string The full path to the file or directory, withtout the trailingslash e.g. '/wp-content/plugins/wp-starter-plugin/dist'.
+	 */
+	public function getDirectoryPath(?string $path = null): string
+	{
+		$path = trim($path, DIRECTORY_SEPARATOR);
+
+		if (is_blank($path)) {
+			return WP_STARTER_PLUGIN__DIR__;
+		}
+
+		return untrailingslashit(WP_STARTER_PLUGIN__DIR__ . DIRECTORY_SEPARATOR . $path);
+	}
+
+	/**
+	 * Retrieve the URL to a file or directory within the plugin.
+	 *
+	 * @param string|null $path The path to a file or directory within the plugin e.g. 'dist', 'languages'.
+	 * @return string The full URL to the file or directory, withtout the trailingslash e.g. 'https://example.com/wp-content/plugins/wp-starter-plugin/dist'.
+	 */
+	public function getDirectoryURL(?string $path = null): string
+	{
+		$dirUrl = untrailingslashit(plugin_dir_url(WP_STARTER_PLUGIN__FILE__));
+
+		if (is_blank($path)) {
+			return $dirUrl;
+		}
+
+		return untrailingslashit($dirUrl . '/' . $path);
 	}
 
 	/**
