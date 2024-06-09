@@ -12,16 +12,6 @@ use const DIRECTORY_SEPARATOR;
 
 class Blocks implements WithHook
 {
-	private RecursiveDirectoryIterator $blocks;
-
-	public function __construct()
-	{
-		$this->blocks = new RecursiveDirectoryIterator(
-			get_plugin_directory_path('dist' . DIRECTORY_SEPARATOR . 'blocks'),
-			RecursiveDirectoryIterator::SKIP_DOTS,
-		);
-	}
-
 	public function hook(Hook $hook): void
 	{
 		$hook->addAction('init', fn () => $this->registerBlocks());
@@ -29,7 +19,12 @@ class Blocks implements WithHook
 
 	private function registerBlocks(): void
 	{
-		foreach ($this->blocks as $block) {
+		$blocks = new RecursiveDirectoryIterator(
+			get_plugin_directory_path('dist' . DIRECTORY_SEPARATOR . 'blocks'),
+			RecursiveDirectoryIterator::SKIP_DOTS,
+		);
+
+		foreach ($blocks as $block) {
 			if (! $block->isDir()) {
 				continue;
 			}

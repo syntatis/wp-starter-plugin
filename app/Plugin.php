@@ -44,6 +44,13 @@ class Plugin implements WithHook
 		$hook->addAction('upgrader_process_complete', $update);
 		$hook->register();
 
+		/**
+		 * Register actions to run when the plugin is activated or deactivated.
+		 *
+		 * @see https://developer.wordpress.org/plugins/plugin-basics/activation-deactivation-hooks/
+		 * @see https://developer.wordpress.org/reference/functions/register_activation_hook/
+		 * @see https://developer.wordpress.org/reference/functions/register_deactivation_hook/
+		 */
 		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
 		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
 
@@ -57,10 +64,7 @@ class Plugin implements WithHook
 	}
 
 	/**
-	 * Handle actions required when the plugin is updated.
-	 *
-	 * Use this method performs tasks such as database updates, compatibility
-	 * checks, and cache clearing when the plugin is updated.
+	 * Handle actions when the plugin is updated.
 	 *
 	 * @param WP_Upgrader                                            $upgrader  The WP_Upgrader instance.
 	 * @param array{action:string,type:string,plugins:array<string>} $hookExtra Additional information about the update process.
@@ -71,33 +75,33 @@ class Plugin implements WithHook
 			return;
 		}
 
-		// Do something.
-	}
-
-	/**
-	 * Perform actions required when the plugin is activated.
-	 *
-	 * @see https://developer.wordpress.org/plugins/plugin-basics/activation-deactivation-hooks/
-	 * @see https://developer.wordpress.org/reference/functions/register_activation_hook/
-	 */
-	private function activate(): void
-	{
 		/**
-		 * Do something, such as creating database tables, performing compatibility checks,
-		 * adding options, and flushing caches.
+		 * Perform routine after the plugin is updated such, as updating database
+		 * tables, checking compatibility, and flushing caches.
 		 */
 	}
 
 	/**
-	 * Perform actions required when the plugin is deactivated.
-	 *
-	 * @see https://developer.wordpress.org/plugins/plugin-basics/activation-deactivation-hooks/
-	 * @see https://developer.wordpress.org/reference/functions/register_deactivation_hook/
+	 * Handle actions when the plugin is activated.
+	 */
+	private function activate(): void
+	{
+		/**
+		 * Perform routine after the plugin is activated, such as setting default
+		 * option values, adding custom rewrite rules, add custom database
+		 * tables.
+		 */
+	}
+
+	/**
+	 * Handle actions when the plugin is deactivated.
 	 */
 	private function deactivate(): void
 	{
 		/**
-		 * Do something, such as flushing caches and permalinks.
+		 * Perform routine after the plugin is deactivated, such as removing temp
+		 * data and files, removing custom database tables and options, and
+		 * flushing cache.
 		 */
 	}
 }

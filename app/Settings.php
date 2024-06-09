@@ -52,12 +52,12 @@ class Settings implements WithHook, InlineScript
 
 	public function hook(Hook $hook): void
 	{
+		$this->options->hook($hook);
+
 		$hook->addAction('rest_api_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
 		$hook->addAction('admin_init', fn () => $this->options->register(WP_STARTER_PLUGIN_NAME));
 		$hook->addAction('admin_menu', fn () => $this->addMenu());
-		$hook->addAction('admin_enqueue_scripts', fn (string $hook) => $this->enqueueScripts($hook));
-
-		$this->options->hook($hook);
+		$hook->addAction('admin_enqueue_scripts', fn (string $adminPage) => $this->enqueueScripts($adminPage));
 	}
 
 	/**
@@ -118,7 +118,7 @@ class Settings implements WithHook, InlineScript
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<div id="<?php echo esc_attr(WP_STARTER_PLUGIN_NAME) ?>-settings"></div>
+			<div id="<?php echo esc_attr(WP_STARTER_PLUGIN_NAME); ?>-settings"></div>
 		</div>
 		<?php
 		// phpcs:enable
