@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-08T08:11:44+00:00\n"
+"POT-Creation-Date: 2024-06-09T04:12:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wp-starter-plugin\n"
@@ -39,41 +39,50 @@ msgstr ""
 msgid "https://github.com/tfirdaus"
 msgstr ""
 
-#: app/Settings.php:83
+#: app/Settings.php:70
 msgid "Starter Plugin Settings"
 msgstr ""
 
-#: app/Settings.php:84
+#: app/Settings.php:71
 msgid "Starter Plugin"
 msgstr ""
 
-#: dist/components-settings.js:66
-#: src/components/Settings/Form.jsx:48
-#: dist/components-settings.js:48
+#: dist/blocks/greeting/index.js:93
+#: dist/settings.js:64
+#: src/settings/Form.jsx:54
+#: dist/blocks/greeting/index.js:66
+#: dist/settings.js:54
 msgid "Greeting"
 msgstr ""
 
-#: dist/components-settings.js:84
-#: src/components/Settings/Form.jsx:71
-#: dist/components-settings.js:71
+#: dist/blocks/greeting/index.js:105
+#: dist/settings.js:76
+#: src/settings/Form.jsx:82
+#: dist/blocks/greeting/index.js:94
+#: dist/settings.js:82
 msgid "Updating Settings"
 msgstr ""
 
-#: dist/components-settings.js:84
-#: src/components/Settings/Form.jsx:72
-#: dist/components-settings.js:72
+#: dist/blocks/greeting/index.js:105
+#: dist/settings.js:76
+#: src/settings/Form.jsx:83
+#: dist/blocks/greeting/index.js:95
+#: dist/settings.js:83
 msgid "Update Settings"
 msgstr ""
 
-#: dist/components-settings.js:136
-#: src/components/Settings/useSettings.js:35
-#: dist/components-settings.js:114
+#: dist/blocks/greeting/index.js:188
+#: dist/settings.js:129
+#: src/settings/useSettings.js:39
+#: dist/blocks/greeting/index.js:154
 msgid "Error updating settings."
 msgstr ""
 
-#: dist/components-settings.js:139
-#: src/components/Settings/useSettings.js:40
-#: dist/components-settings.js:119
+#: dist/blocks/greeting/index.js:191
+#: dist/settings.js:132
+#: src/settings/useSettings.js:44
+#: dist/blocks/greeting/index.js:159
+#: dist/settings.js:134
 msgid "Settings updated."
 msgstr ""
 
