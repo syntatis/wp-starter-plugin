@@ -58,7 +58,7 @@ function enqueue(): Enqueue
 		get_plugin_directory_url('dist'),
 	);
 	$enqueue->setPrefix(WP_STARTER_PLUGIN_NAME);
-	$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, get_plugin_directory_path('languages'));
+	$enqueue->setTranslations(WP_STARTER_PLUGIN_NAME, get_plugin_directory_path('inc/languages'));
 
 	return $enqueue;
 }

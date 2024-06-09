@@ -19,7 +19,7 @@ declare(strict_types=1);
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-starter-plugin
- * Domain Path:       /languages
+ * Domain Path:       /inc/languages
  */
 
 namespace WPStarterPlugin;
@@ -90,4 +90,4 @@ require WP_STARTER_PLUGIN__DIR__ . '/inc/helpers.php';
 $plugin = new Plugin();
 $plugin->hook(new Hook());
 
-load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname(get_plugin_basename()) . '/languages/');
+load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname(get_plugin_basename()) . '/inc/languages/');
