@@ -51,7 +51,9 @@
 		]
 	},
 	"scripts-descriptions": {
-		"scope": "Scope the autoloader to prevent conflicts with other plugins"
+		"scope": "Scope the autoloader to prevent conflicts with other plugins",
+		"phpcs": "Check the codebase for coding standards violations",
+		"phpcs:fix": "Fix coding standards violations"
 	},
 	"config": {
 		"optimize-autoloader": true,

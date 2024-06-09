@@ -65,7 +65,9 @@ This boilerplate comes with a few Composer and NPM commands to help you manage y
 
 | Command | Description |
 | --- | --- |
-| `composer scope` | Scope the dependency namespace to prevent conflicts with other plugins. |
+| `composer scope`     | Scope the dependency namespace to prevent conflicts with other plugins. |
+| `composer phpcs`     | Check the codebase for coding standards violations |
+| `composer phpcs:fix` | Fix coding standards violations |
 
 ### NPM
 
