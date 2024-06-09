@@ -26,7 +26,7 @@ This WordPress plugin boilerplate gives you a basic structure for your plugin an
 
 Make sure you have the following installed to use these tools:
 
-* **[PHP](https://www.php.net/) (7 or later)**: Required to run Composer.
+* **[PHP](https://www.php.net/) (7.4 or later)**: Required to run Composer.
 * **[Composer](https://getcomposer.org/)**: Manages PHP dependencies.
 * **[Node.js](https://nodejs.org/) (18 or later)**: Required to run NPM.
 * **[NPM](https://www.npmjs.com/)**: Manages Node.js and JavaScript dependencies.
