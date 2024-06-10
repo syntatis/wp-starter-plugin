@@ -15,8 +15,6 @@ You can start creating a WordPress plugin with just one PHP file, but as your pl
 
 This WordPress plugin boilerplate gives you a basic structure for your plugin and includes popular tools pre-configured to help you get started quickly and develop your plugin more efficiently. Here are some of the tools included in this boilerplate:
 
-## Tools
-
 * **[PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer)**: Checks and fixes code styles according to common PHP practices.
 * **[PHPScoper](https://github.com/humbug/php-scoper)**: Prevents class name collisions with other plugins.
 * **[Webpack](https://webpack.js.org/) (via [wp-scripts](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/))**: Bundles and optimizes assets.
