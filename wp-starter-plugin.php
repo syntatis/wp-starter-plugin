@@ -59,7 +59,7 @@ define('WP_STARTER_PLUGIN_NAME', 'wp-starter-plugin');
  * This constant provides a convenient reference to the plugin's directory path,
  * useful for including or requiring files relative to this directory.
  */
-define('WP_STARTER_PLUGIN__DIR__', __DIR__);
+define('WP_STARTER_PLUGIN_DIR', __DIR__);
 
 /**
  * Define the path to the plugin file.
@@ -68,7 +68,7 @@ define('WP_STARTER_PLUGIN__DIR__', __DIR__);
  * and deactivation processes, loading the plugin text domain, adding action
  * links, and more.
  */
-define('WP_STARTER_PLUGIN__FILE__', __FILE__);
+define('WP_STARTER_PLUGIN_FILE', __FILE__);
 
 /**
  * Load dependencies using the Composer autoloader.
@@ -84,8 +84,8 @@ define('WP_STARTER_PLUGIN__FILE__', __FILE__);
  * @see https://getcomposer.org/doc/01-basic-usage.md#autoloading
  * @see https://deliciousbrains.com/php-scoper-namespace-composer-dependencies/
  */
-require WP_STARTER_PLUGIN__DIR__ . '/dist-autoload/vendor/scoper-autoload.php';
-require WP_STARTER_PLUGIN__DIR__ . '/inc/helpers.php';
+require WP_STARTER_PLUGIN_DIR . '/dist-autoload/vendor/scoper-autoload.php';
+require WP_STARTER_PLUGIN_DIR . '/inc/helpers.php';
 
 (new Plugin())->hook(new Hook());
 

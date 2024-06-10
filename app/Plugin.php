@@ -51,8 +51,8 @@ class Plugin implements WithHook
 		 * @see https://developer.wordpress.org/reference/functions/register_activation_hook/
 		 * @see https://developer.wordpress.org/reference/functions/register_deactivation_hook/
 		 */
-		register_activation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->activate());
-		register_deactivation_hook(WP_STARTER_PLUGIN__FILE__, fn () => $this->deactivate());
+		register_activation_hook(WP_STARTER_PLUGIN_FILE, fn () => $this->activate());
+		register_deactivation_hook(WP_STARTER_PLUGIN_FILE, fn () => $this->deactivate());
 
 		/**
 		 * Fires after the plugin is fully initialized.

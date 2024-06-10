@@ -13,7 +13,7 @@ use const DIRECTORY_SEPARATOR;
 
 function plugin_basename(): string
 {
-	return plugin_basename(WP_STARTER_PLUGIN__FILE__);
+	return plugin_basename(WP_STARTER_PLUGIN_FILE);
 }
 
 /**
@@ -27,7 +27,7 @@ function plugin_dir_path(?string $path = null): string
 	$path = trim($path, DIRECTORY_SEPARATOR);
 
 	if (! is_blank($path)) {
-		$path = WP_STARTER_PLUGIN__DIR__ . DIRECTORY_SEPARATOR . $path;
+		$path = WP_STARTER_PLUGIN_DIR . DIRECTORY_SEPARATOR . $path;
 	}
 
 	return untrailingslashit($path);
@@ -41,7 +41,7 @@ function plugin_dir_path(?string $path = null): string
  */
 function plugin_dir_url(?string $path = null): string
 {
-	$dirUrl = plugin_dir_url(WP_STARTER_PLUGIN__FILE__);
+	$dirUrl = plugin_dir_url(WP_STARTER_PLUGIN_FILE);
 
 	if (! is_blank($path)) {
 		$dirUrl .= $path;
