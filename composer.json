@@ -11,7 +11,8 @@
 	"authors": [
 		{
 			"name": "Thoriq Firdaus",
-			"homepage": "https://github.com/tfirdaus"
+			"homepage": "https://github.com/tfirdaus",
+			"role": "Developer"
 		}
 	],
 	"license": "GPL-2.0-or-later",
@@ -30,24 +31,22 @@
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-		"phpcompatibility/phpcompatibility-wp": "^2.1",
-		"syntatis/coding-standard": "^1.1",
-		"wp-coding-standards/wpcs": "^3.0"
+		"syntatis/coding-standard": "^1.2"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,
 	"scripts": {
 		"phpcs:fix": "phpcbf",
 		"phpcs": "phpcs",
-		"scope": [
-			"@composer install --no-dev",
-			"php-scoper add-prefix --output-dir=dist-autoload --force --quiet",
-			"@composer dump-autoload --working-dir dist-autoload"
-		],
 		"post-create-project-cmd": [
 			"@composer bin php-scoper require -W humbug/php-scoper:*",
 			"@composer scope",
 			"@composer install"
+		],
+		"scope": [
+			"@composer install --no-dev",
+			"php-scoper add-prefix --output-dir=dist-autoload --force --quiet",
+			"@composer dump-autoload --working-dir dist-autoload"
 		]
 	},
 	"scripts-descriptions": {

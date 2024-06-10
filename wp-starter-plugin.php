@@ -87,7 +87,6 @@ define('WP_STARTER_PLUGIN__FILE__', __FILE__);
 require WP_STARTER_PLUGIN__DIR__ . '/dist-autoload/vendor/scoper-autoload.php';
 require WP_STARTER_PLUGIN__DIR__ . '/inc/helpers.php';
 
-$plugin = new Plugin();
-$plugin->hook(new Hook());
+(new Plugin())->hook(new Hook());
 
-load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname(get_plugin_basename()) . '/inc/languages/');
+load_plugin_textdomain(WP_STARTER_PLUGIN_NAME, false, dirname(plugin_basename()) . '/inc/languages/');
