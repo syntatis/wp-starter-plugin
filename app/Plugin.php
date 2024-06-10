@@ -71,7 +71,7 @@ class Plugin implements WithHook
 	 */
 	private function update(WP_Upgrader $upgrader, array $hookExtra): void
 	{
-		if (! is_plugin_updated(get_plugin_basename(), $hookExtra)) {
+		if (! is_plugin_updated(plugin_basename(), $hookExtra)) {
 			return;
 		}
 

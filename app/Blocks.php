@@ -20,7 +20,7 @@ class Blocks implements WithHook
 	private function registerBlocks(): void
 	{
 		$blocks = new RecursiveDirectoryIterator(
-			get_plugin_directory_path('dist' . DIRECTORY_SEPARATOR . 'blocks'),
+			plugin_dir_path('dist' . DIRECTORY_SEPARATOR . 'blocks'),
 			RecursiveDirectoryIterator::SKIP_DOTS,
 		);
 
